@@ -4,19 +4,19 @@
 # You may also want to update /config/webpack.pwa.js in case you want to generate a Progressive Web App
 
 title: Mobile App Landing Page Template
-email: contact@sandoche.com
+email: info@supa.vn
 description: Free to use static landing page template to showcase your mobile app
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://mobileapplandingpage.learn.uno" # the base hostname & protocol for your site, e.g. http://example.com
-theme_color: '#efeeff'
-twitter_username: sandochee
-github_username:  sandoche
-author: Sandoche Adittane
+url: "https://bibs-app.supa.vn" # the base hostname & protocol for your site, e.g. http://example.com
+theme_color: "#efeeff"
+twitter_username: supa
+github_username: supa
+author: Supa
 logo: assets/images/large-logo.png
 twitter:
-  username: sandochee
+  username: supa
 social:
-  name: Sandoche Adittane
+  name: Supa
   links:
     - https://twitter.com/sandochee
     - https://www.facebook.com/sandoche
@@ -27,7 +27,7 @@ social:
 languages: ["en"]
 ampdir: amp
 
-github: https://github.com/sandoche/Mobile-app-landingpage-template
+github: https://github.com/supavn/supa-bibs-landing-page
 
 ### Google webmaster tools, Google Analytics, Doorbell and Cookie consent uncomment and put the API key
 #webmaster_verifications:

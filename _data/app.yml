@@ -1,13 +1,13 @@
-name: Mobile App Name
-description: A super tagline for the mobile app
-full_description: 'A more complete description of the mobile app<br>
-<br>With a lot of features:
-<br>- Feature 1
-<br>- Feature 2
-<br>- Feature 3'
+name: BIBS for Android
+description: Ứng dụng BIBS cho thu ngân trên Android box
+full_description: |
+  Ứng dụng BIBS cho thu ngân trên Android box với các tính năng:
+  <br>- Quản lý bàn cho khu vực
+  <br>- Tính tiền và xác nhận thanh toán cho bàn
+  <br>- Bật và tắt đèn khi khách đến và chuẩn bị thanh toán ra về
+  <br>- In hóa đơn
+  <br>- Xác nhận và cập nhật trạng thái gọi đồ, dịch vụ
 android: https://telegra.ph/Replace-this-link-07-23
-iOS: https://telegra.ph/Replace-this-link-07-23
-web: https://telegra.ph/Replace-this-link-07-23
 screenshots:
   - 1.png
   - 2.png
