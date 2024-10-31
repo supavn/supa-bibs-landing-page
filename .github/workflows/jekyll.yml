@@ -1,49 +1,78 @@
-name: Build and Deploy Jekyll Site
+# Sample workflow for building and deploying a Jekyll site to GitHub Pages with Node.js setup
+name: Deploy Jekyll site to Pages
 
 on:
+  # Runs on pushes targeting the default branch
   push:
-    branches:
-      - master
+    branches: ["master"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
+  # Build job
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js v20
+      # Step to set up Node.js v20
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
 
-      # Step 3: Install Yarn dependencies
+      # Step to install Yarn dependencies
       - name: Install Yarn dependencies
         run: yarn install
 
-      # Step 4: Build using Yarn
-      - name: Build using Yarn
+      # Step to build JavaScript code
+      - name: Build JavaScript
         run: yarn build
 
-      # Step 5: Set up Ruby and Jekyll
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@8575951200e472d5f2d95c625da0c7bec8217c42 # v1.161.0
         with:
-          ruby-version: "3.1" # You can specify your Ruby version
+          ruby-version: "3.1" # Not needed with a .ruby-version file
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          cache-version: 0 # Increment this number if you need to re-download cached gems
 
-      - name: Install Jekyll dependencies
-        run: bundle install
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
 
-      # Step 6: Build Jekyll site
-      - name: Build Jekyll site
-        run: bundle exec jekyll build
+      # Step to build the Jekyll site
+      - name: Build with Jekyll
+        # Outputs to the './_site' directory by default
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
 
-      # Step 7: Deploy _site to GitHub Pages
+      - name: Upload artifact
+        # Automatically uploads an artifact from the './_site' directory by default
+        uses: actions/upload-pages-artifact@v3
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _site
+        id: deployment
+        uses: actions/deploy-pages@v4
