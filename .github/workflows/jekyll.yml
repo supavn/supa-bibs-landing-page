@@ -1,0 +1,49 @@
+name: Build and Deploy Jekyll Site
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js v20
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      # Step 3: Install Yarn dependencies
+      - name: Install Yarn dependencies
+        run: yarn install
+
+      # Step 4: Build using Yarn
+      - name: Build using Yarn
+        run: yarn build
+
+      # Step 5: Set up Ruby and Jekyll
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1" # You can specify your Ruby version
+
+      - name: Install Jekyll dependencies
+        run: bundle install
+
+      # Step 6: Build Jekyll site
+      - name: Build Jekyll site
+        run: bundle exec jekyll build
+
+      # Step 7: Deploy _site to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _site
