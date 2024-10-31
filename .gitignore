@@ -9,3 +9,4 @@ yarn-error.log
 # editors
 .idea
 .jekyll-cache
+Gemfile.lock
